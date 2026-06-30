@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const metrics = [
   { label: '트러블슈팅 케이스', value: '5건' },
-  { label: '팀 프로젝트', value: '4건' },
+  { label: '팀 프로젝트', value: '2건' },
   { label: '인턴 경력', value: '3개월' },
   { label: '보유 기술', value: '10+' },
 ]
