@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { projects } from '@/lib/projects'
 
 export function Nav() {
   return (
@@ -7,18 +8,15 @@ export function Nav() {
         <Link href="/" className="font-semibold text-sm">
           김민석
         </Link>
-        <Link
-          href="/projects/oz-externship"
-          className="text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-        >
-          OZ Externship
-        </Link>
-        <Link
-          href="/projects/travel-maker"
-          className="text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-        >
-          TravelMaker
-        </Link>
+        {projects.map((project) => (
+          <Link
+            key={project.slug}
+            href={project.href}
+            className="text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          >
+            {project.title}
+          </Link>
+        ))}
         <Link
           href="/#cases"
           className="text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
