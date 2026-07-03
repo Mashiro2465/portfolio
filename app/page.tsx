@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { ProjectCard } from '@/components/ProjectCard'
+import { projects, inProgressProjects } from '@/lib/projects'
 
 const metrics = [
   { label: '트러블슈팅 케이스', value: '5건' },
@@ -171,45 +173,18 @@ export default function HomePage() {
 
       {/* Projects */}
       <section>
-        <h2 className="text-xl font-semibold mb-6">프로젝트</h2>
-        <div className="space-y-3">
-          {[
-            {
-              href: '/projects/oz-externship',
-              title: 'OZ Externship',
-              desc: 'LMS(학습 관리 시스템) 구축 프로젝트. 계층형 카테고리, QnA 시스템, 관리자 권한 관리를 담당했습니다.',
-              tags: ['Django', 'DRF', 'PostgreSQL', 'Docker', 'GitHub Actions'],
-            },
-            {
-              href: '/projects/travel-maker',
-              title: 'TravelMaker',
-              desc: '성향 테스트 기반 맞춤형 여행지 추천과 나만의 여행 코스 빌더를 제공하는 여행 플랫폼. pgvector 유사도 검색으로 개인화 추천을 구현했습니다.',
-              tags: ['Django', 'pgvector', 'AWS EC2', 'Docker', 'Redis', 'Celery'],
-            },
-          ].map(({ href, title, desc, tags }) => (
-            <Link
-              key={href}
-              href={href}
-              className="block border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-semibold text-lg">{title}</h3>
-                  <p className="text-sm text-gray-500 mt-1">{desc}</p>
-                </div>
-                <span className="text-gray-400 text-lg">→</span>
-              </div>
-              <div className="flex flex-wrap gap-2 mt-4">
-                {tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </Link>
+        <div className="mb-8">
+          <span className="text-xs font-medium text-gray-400 uppercase tracking-widest">
+            Projects
+          </span>
+          <h2 className="text-2xl font-bold mt-2">프로젝트</h2>
+          <p className="text-sm text-gray-500 mt-2 max-w-2xl">
+            팀 프로젝트를 통해 백엔드 설계부터 인프라 운영까지 경험한 프로젝트들입니다.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.map((project) => (
+            <ProjectCard key={project.href} {...project} />
           ))}
         </div>
       </section>
@@ -217,41 +192,9 @@ export default function HomePage() {
       {/* In Progress */}
       <section>
         <h2 className="text-xl font-semibold mb-6">진행중인 프로젝트</h2>
-        <div className="space-y-3">
-          {[
-            {
-              title: '[프로젝트명]',
-              desc: '[프로젝트 설명]',
-              tags: ['Java', 'Spring'],
-              status: '진행중',
-            },
-          ].map(({ title, desc, tags, status }) => (
-            <div
-              key={title}
-              className="block border border-gray-200 dark:border-gray-700 rounded-lg p-6"
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-lg">{title}</h3>
-                    <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-2 py-0.5 rounded-full">
-                      {status}
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">{desc}</p>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-2 mt-4">
-                {tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {inProgressProjects.map((project) => (
+            <ProjectCard key={project.title} {...project} />
           ))}
         </div>
       </section>
