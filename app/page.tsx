@@ -1,6 +1,24 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ProjectCard } from '@/components/ProjectCard'
+import { SectionHeader } from '@/components/SectionHeader'
+import { Badge } from '@/components/Badge'
 import { projects, inProgressProjects } from '@/lib/projects'
+
+const focusAreas = [
+  {
+    title: 'Backend & API',
+    description: 'Django/DRF, FastAPI 기반 API 설계와 데이터 모델링',
+  },
+  {
+    title: 'Infra & Automation',
+    description: 'Docker, CI/CD 기반 배포 자동화 및 운영',
+  },
+  {
+    title: 'Practical Problem-Solving',
+    description: '실무 트러블슈팅과 데이터 자동화 파이프라인 구축 경험',
+  },
+]
 
 const metrics = [
   { label: '트러블슈팅 케이스', value: '5건' },
@@ -23,7 +41,7 @@ const skills = [
     items: ['JWT', 'OAuth 2.0 (카카오 소셜)'],
   },
   {
-    category: '협업 · 도구',
+    category: 'Tools',
     items: ['Git', 'GitHub', 'TDD', 'uv'],
   },
 ]
@@ -73,26 +91,71 @@ export default function HomePage() {
   return (
     <main className="max-w-4xl mx-auto px-4 py-16 space-y-20">
       {/* Hero */}
-      <section>
-        <h1 className="text-4xl font-bold tracking-tight mb-4">김민석</h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
-          데이터 자동화와 백엔드 개발 경험을 통해 실제 업무 효율을 개선한 개발자입니다.
-          인턴 경험과 팀 프로젝트를 통해 CI/CD 파이프라인 구축, 서버 인프라 운영,
-          API 설계까지 경험했습니다.
-        </p>
-        <p className="text-sm text-gray-400 mt-3">
-          rlaalstjr2465@gmail.com · <a href="https://github.com/Mashiro2465" target="_blank" rel="noopener noreferrer" className="hover:underline">github.com/Mashiro2465</a>
-        </p>
+      <section className="flex flex-col md:flex-row items-start gap-8">
+        <div className="flex-1">
+          <span className="text-xs uppercase tracking-widest text-gray-400">
+            Backend Developer
+          </span>
+          <h1 className="text-4xl font-bold tracking-tight mt-2 mb-4">김민석</h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+            데이터 자동화와 백엔드 개발 경험을 통해 실제 업무 효율을 개선한 개발자입니다.
+            인턴 경험과 팀 프로젝트를 통해 CI/CD 파이프라인 구축, 서버 인프라 운영,
+            API 설계까지 경험했습니다.
+          </p>
+          <div className="flex gap-3 mt-5">
+            <a
+              href="https://github.com/Mashiro2465"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm px-3 py-1.5 rounded-md bg-gray-900 text-white hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 transition-colors"
+            >
+              GitHub
+            </a>
+            <a
+              href="mailto:rlaalstjr2465@gmail.com"
+              className="text-sm px-3 py-1.5 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+            >
+              이메일 보내기
+            </a>
+          </div>
+        </div>
+        <div className="w-72 shrink-0 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+          <div className="relative w-full aspect-[3/4] rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <Image
+              src="/profile.jpg"
+              alt="김민석 프로필 사진"
+              fill
+              sizes="240px"
+              className="object-cover object-top"
+              priority
+            />
+          </div>
+          <div className="text-xs font-medium text-gray-400 uppercase tracking-widest mt-4">
+            Focus
+          </div>
+          <div className="space-y-3 mt-3">
+            {focusAreas.map(({ title, description }) => (
+              <div key={title}>
+                <h3 className="font-semibold">{title}</h3>
+                <p className="text-sm text-gray-500 mt-0.5">{description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Key Metrics */}
       <section>
-        <h2 className="text-xl font-semibold mb-6">핵심 지표</h2>
+        <SectionHeader
+          label="Core Metrics"
+          title="핵심 지표"
+          description="짧은 기간 동안 쌓아온 경험을 숫자로 정리했습니다."
+        />
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {metrics.map(({ label, value }) => (
             <div
               key={label}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-5"
+              className="border border-gray-200 dark:border-gray-700 rounded-lg p-5 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
             >
               <div className="text-2xl font-bold">{value}</div>
               <div className="text-sm text-gray-500 mt-1">{label}</div>
@@ -101,26 +164,55 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Projects */}
+      <section>
+        <SectionHeader
+          label="Projects"
+          title="프로젝트"
+          description="팀 프로젝트를 통해 백엔드 설계부터 인프라 운영까지 경험한 프로젝트들입니다."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.map((project) => (
+            <ProjectCard key={project.href} {...project} />
+          ))}
+        </div>
+      </section>
+
+      {/* In Progress */}
+      <section>
+        <SectionHeader
+          label="In Progress"
+          title="진행중인 프로젝트"
+          description="현재 설계와 개발을 이어가고 있는 프로젝트입니다."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {inProgressProjects.map((project) => (
+            <ProjectCard key={project.title} {...project} />
+          ))}
+        </div>
+      </section>
+
       {/* Skills */}
       <section>
-        <h2 className="text-xl font-semibold mb-6">기술 스택</h2>
+        <SectionHeader
+          label="Tech Stack"
+          title="기술 스택"
+          description="실무와 프로젝트에서 직접 사용하며 익힌 기술들입니다."
+        />
         <div className="grid sm:grid-cols-2 gap-4">
           {skills.map(({ category, items }) => (
             <div
               key={category}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-5"
+              className="border border-gray-200 dark:border-gray-700 rounded-lg p-5 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
             >
               <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
                 {category}
               </div>
               <div className="flex flex-wrap gap-2">
                 {items.map((item) => (
-                  <span
-                    key={item}
-                    className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
-                  >
+                  <Badge key={item} variant="gray" className="px-2 py-1">
                     {item}
-                  </span>
+                  </Badge>
                 ))}
               </div>
             </div>
@@ -128,14 +220,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Experience */}
+      {/* Experience & Education */}
       <section>
-        <h2 className="text-xl font-semibold mb-6">경력</h2>
+        <SectionHeader
+          label="Experience"
+          title="경력 및 학력"
+          description="인턴으로 실무를 경험하고, 정보보안을 전공하며 개발의 기초를 다졌습니다."
+        />
         <div className="space-y-4">
           {experiences.map(({ company, role, period, items }) => (
             <div
               key={company}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-6"
+              className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
@@ -154,67 +250,38 @@ export default function HomePage() {
               </ul>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Education */}
-      <section>
-        <h2 className="text-xl font-semibold mb-6">학력</h2>
-        <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
-          <div className="flex items-start justify-between">
-            <div>
-              <h3 className="font-semibold">동신대학교</h3>
-              <p className="text-sm text-gray-500 mt-0.5">정보보안학과</p>
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+            <div className="flex items-start justify-between">
+              <div>
+                <h3 className="font-semibold">동신대학교</h3>
+                <p className="text-sm text-gray-500 mt-0.5">정보보안학과</p>
+              </div>
+              <span className="text-sm text-gray-400 shrink-0 ml-4">2017.03 – 2023.02</span>
             </div>
-            <span className="text-sm text-gray-400 shrink-0 ml-4">2017.03 – 2023.02</span>
           </div>
-        </div>
-      </section>
-
-      {/* Projects */}
-      <section>
-        <div className="mb-8">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-widest">
-            Projects
-          </span>
-          <h2 className="text-2xl font-bold mt-2">프로젝트</h2>
-          <p className="text-sm text-gray-500 mt-2 max-w-2xl">
-            팀 프로젝트를 통해 백엔드 설계부터 인프라 운영까지 경험한 프로젝트들입니다.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((project) => (
-            <ProjectCard key={project.href} {...project} />
-          ))}
-        </div>
-      </section>
-
-      {/* In Progress */}
-      <section>
-        <h2 className="text-xl font-semibold mb-6">진행중인 프로젝트</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {inProgressProjects.map((project) => (
-            <ProjectCard key={project.title} {...project} />
-          ))}
         </div>
       </section>
 
       {/* Troubleshooting Cases */}
       <section id="cases">
-        <h2 className="text-xl font-semibold mb-6">트러블슈팅 케이스</h2>
+        <SectionHeader
+          label="Troubleshooting"
+          title="트러블슈팅 케이스"
+          description="실무에서 마주친 문제를 원인 분석부터 해결까지 정리했습니다."
+        />
         <div className="space-y-3">
           {cases.map(({ slug, title, tags }) => (
             <Link
               key={slug}
               href={`/cases/${slug}`}
-              className="flex items-center justify-between border border-gray-200 dark:border-gray-700 rounded-lg px-5 py-4 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+              className="flex items-center justify-between border border-gray-200 dark:border-gray-700 rounded-lg px-5 py-4 hover:bg-gray-50 dark:hover:bg-gray-900 hover:shadow-md transition-all duration-200"
             >
               <span className="font-medium text-sm">{title}</span>
               <div className="flex gap-3">
                 {tags.map((t) => (
-                  <span key={t} className="text-xs text-gray-400">
+                  <Badge key={t} variant="gray" className="text-gray-400 px-2 py-1">
                     {t}
-                  </span>
+                  </Badge>
                 ))}
               </div>
             </Link>

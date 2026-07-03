@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Project } from '@/lib/projects'
+import { Badge } from '@/components/Badge'
 
 export function ProjectCard({ title, category, desc, tags, features, links, status }: Project) {
   return (
@@ -10,21 +11,16 @@ export function ProjectCard({ title, category, desc, tags, features, links, stat
       <div className="flex items-center gap-2 mt-1">
         <h3 className="font-semibold text-lg">{title}</h3>
         {status === 'in-progress' && (
-          <span className="text-xs bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-300 px-2 py-0.5 rounded-full">
-            진행중
-          </span>
+          <Badge className="px-2 py-0.5">진행중</Badge>
         )}
       </div>
       <p className="text-sm text-gray-500 mt-2">{desc}</p>
 
       <div className="flex flex-wrap gap-2 mt-4">
         {tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-300 px-2.5 py-1 rounded-full"
-          >
+          <Badge key={tag} className="px-2.5 py-1">
             {tag}
-          </span>
+          </Badge>
         ))}
       </div>
 
