@@ -274,10 +274,10 @@ export default function HomePage() {
             <Link
               key={slug}
               href={`/cases/${slug}`}
-              className="flex items-center justify-between border border-gray-200 dark:border-gray-700 rounded-lg px-5 py-4 hover:bg-gray-50 dark:hover:bg-gray-900 hover:shadow-md transition-all duration-200"
+              className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border border-gray-200 dark:border-gray-700 rounded-lg px-5 py-4 hover:bg-gray-50 dark:hover:bg-gray-900 hover:shadow-md transition-all duration-200"
             >
               <span className="font-medium text-sm">{title}</span>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 {tags.map((t) => (
                   <Badge key={t} variant="gray" className="text-gray-400 px-2 py-1">
                     {t}
