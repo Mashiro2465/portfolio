@@ -14,9 +14,29 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
+const title = '김민석 | 백엔드 개발자'
+const description =
+  '데이터 자동화와 백엔드 개발 경험을 통해 실제 업무 효율을 개선한 개발자, 김민석의 포트폴리오입니다.'
+
 export const metadata: Metadata = {
-  title: '김민석 | 백엔드 개발자',
-  description: '데이터 자동화와 백엔드 개발 경험을 통해 실제 업무 효율을 개선한 개발자, 김민석의 포트폴리오입니다.',
+  metadataBase: new URL('https://portfolio-minseok.vercel.app'),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url: 'https://portfolio-minseok.vercel.app',
+    siteName: '김민석 포트폴리오',
+    images: ['/opengraph-image'],
+    locale: 'ko_KR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/opengraph-image'],
+  },
 }
 
 export default function RootLayout({

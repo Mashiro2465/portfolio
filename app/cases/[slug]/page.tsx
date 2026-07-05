@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import type { Metadata, ResolvingMetadata } from 'next'
 import { getCaseSlugs, getCaseBySlug, type CaseFrontmatter } from '@/lib/mdx'
 import { Badge } from '@/components/Badge'
 
@@ -10,6 +11,35 @@ export function generateStaticParams() {
 
 type Props = {
   params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params
+
+  let frontmatter: CaseFrontmatter
+  try {
+    frontmatter = getCaseBySlug(slug).frontmatter
+  } catch {
+    return {}
+  }
+
+  const title = `${frontmatter.title} | 김민석`
+  const description = frontmatter.summary
+  const previousImages = (await parent).openGraph?.images ?? []
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `/cases/${slug}`,
+      images: previousImages,
+    },
+  }
 }
 
 export default async function CasePage({ params }: Props) {

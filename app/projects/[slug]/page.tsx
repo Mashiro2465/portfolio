@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata, ResolvingMetadata } from 'next'
 import { projects } from '@/lib/projects'
 import { getCaseBySlug } from '@/lib/mdx'
 import { SectionHeader } from '@/components/SectionHeader'
@@ -11,6 +12,33 @@ export function generateStaticParams() {
 
 type Props = {
   params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params
+  const project = projects.find((p) => p.slug === slug)
+
+  if (!project) {
+    return {}
+  }
+
+  const title = `${project.title} | 김민석`
+  const description = project.desc
+  const previousImages = (await parent).openGraph?.images ?? []
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `/projects/${slug}`,
+      images: previousImages,
+    },
+  }
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
