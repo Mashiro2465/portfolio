@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { projects } from '@/lib/projects'
 import { getCaseBySlug } from '@/lib/mdx'
+import { SectionHeader } from '@/components/SectionHeader'
+import { Badge } from '@/components/Badge'
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }))
@@ -21,6 +23,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   const {
     title,
+    category,
     longDesc,
     team,
     period,
@@ -46,33 +49,39 @@ export default async function ProjectDetailPage({ params }: Props) {
       <div>
         <Link
           href="/"
-          className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-6 inline-block"
+          className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-6 block"
         >
           ← 홈
         </Link>
-        <h1 className="text-3xl font-bold mb-3">{title}</h1>
+        <span className="text-xs uppercase tracking-widest text-gray-400 block">
+          {category ?? 'PROJECT'}
+        </span>
+        <h1 className="text-3xl font-bold mt-2 mb-3">{title}</h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl">{longDesc}</p>
-        <p className="text-sm text-gray-400 mt-3">
-          {team} · {period}
+        <div className="flex flex-wrap items-center gap-3 mt-5">
+          <span className="text-sm text-gray-400">
+            {team} · {period}
+          </span>
           {githubLink && (
-            <>
-              {' · '}
-              <a
-                href={githubLink.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline"
-              >
-                GitHub
-              </a>
-            </>
+            <a
+              href={githubLink.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm px-3 py-1.5 rounded-md bg-gray-900 text-white hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 transition-colors"
+            >
+              GitHub
+            </a>
           )}
-        </p>
+        </div>
       </div>
 
       {/* Key Numbers */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">프로젝트 개요</h2>
+        <SectionHeader
+          label="OVERVIEW"
+          title="프로젝트 개요"
+          description="프로젝트의 기본 정보를 정리했습니다."
+        />
         <div className="grid grid-cols-3 gap-4">
           {[
             { label: '소속', value: team },
@@ -81,7 +90,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           ].map(({ label, value }) => (
             <div
               key={label}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-5"
+              className="border border-gray-200 dark:border-gray-700 rounded-lg p-5 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
             >
               <div className="font-bold text-lg">{value}</div>
               <div className="text-sm text-gray-500 mt-1">{label}</div>
@@ -92,7 +101,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       {/* My Role */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">담당 업무</h2>
+        <SectionHeader label="RESPONSIBILITIES" title="담당 업무" />
         <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
           {responsibilities.map((item) => (
             <li key={item} className="flex gap-2">
@@ -105,23 +114,23 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       {/* Tech Stack */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">기술 스택</h2>
+        <SectionHeader label="TECH STACK" title="기술 스택" />
         <div className="grid sm:grid-cols-2 gap-4">
-          {detailedStack.map(({ category, items }) => (
+          {detailedStack.map(({ category: stackCategory, items }) => (
             <div
-              key={category}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-5"
+              key={stackCategory}
+              className="border border-gray-200 dark:border-gray-700 rounded-lg p-5 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
             >
               <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
-                {category}
+                {stackCategory}
               </div>
-              <ul className="space-y-1">
+              <div className="flex flex-wrap gap-2">
                 {items.map((item) => (
-                  <li key={item} className="text-sm">
+                  <Badge key={item} variant="gray" className="px-2 py-1">
                     {item}
-                  </li>
+                  </Badge>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
@@ -130,39 +139,45 @@ export default async function ProjectDetailPage({ params }: Props) {
       {/* Architecture Diagram */}
       {architectureImage && (
         <section>
-          <h2 className="text-xl font-semibold mb-4">아키텍처</h2>
-          <img
-            src={architectureImage}
-            alt={`${title} 아키텍처 다이어그램`}
-            className="w-full rounded-xl border border-gray-200 dark:border-gray-700"
-          />
+          <SectionHeader label="ARCHITECTURE" title="아키텍처" />
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+            <img
+              src={architectureImage}
+              alt={`${title} 아키텍처 다이어그램`}
+              className="w-full"
+            />
+          </div>
         </section>
       )}
 
       {/* User Flow */}
       {userFlowImage && (
         <section>
-          <h2 className="text-xl font-semibold mb-4">유저 플로우</h2>
-          <img
-            src={userFlowImage}
-            alt={`${title} 유저 플로우`}
-            className="w-full rounded-xl border border-gray-200 dark:border-gray-700"
-          />
+          <SectionHeader label="USER FLOW" title="유저 플로우" />
+          <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+            <img
+              src={userFlowImage}
+              alt={`${title} 유저 플로우`}
+              className="w-full"
+            />
+          </div>
         </section>
       )}
 
       {/* Related Troubleshooting Cases */}
       {relatedCaseItems.length > 0 && (
         <section>
-          <h2 className="text-xl font-semibold mb-4">관련 트러블슈팅</h2>
+          <SectionHeader label="RELATED CASES" title="관련 트러블슈팅" />
           <div className="space-y-2">
             {relatedCaseItems.map(({ slug: caseSlug, title: caseTitle }) => (
               <Link
                 key={caseSlug}
                 href={`/cases/${caseSlug}`}
-                className="flex items-center gap-2 text-sm py-2 hover:underline"
+                className="group flex items-center gap-2 text-sm py-2 hover:underline"
               >
-                <span className="text-gray-400">→</span>
+                <span className="text-gray-400 transition-transform group-hover:translate-x-1">
+                  →
+                </span>
                 {caseTitle}
               </Link>
             ))}

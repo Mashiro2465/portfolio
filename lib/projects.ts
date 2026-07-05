@@ -62,7 +62,7 @@ export const projects: Project[] = [
       { category: 'Backend', items: ['Django', 'DRF', 'PostgreSQL', 'JWT'] },
       { category: 'Infra', items: ['Docker', 'GitHub Actions', 'AWS EC2', 'uv'] },
       { category: 'Admin / Auth', items: ['Django Admin Page', '관리자 권한 분리'] },
-      { category: '협업 도구', items: ['GitHub (브랜치 전략)', '코드 리뷰', 'TDD'] },
+      { category: 'Collaboration', items: ['GitHub (브랜치 전략)', '코드 리뷰', 'TDD'] },
     ],
     responsibilities: [
       'QnA 및 카테고리 관리 기능 설계 및 구현',
