@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="border-t border-gray-200 dark:border-gray-800 mt-auto">
+    <footer className="print:hidden border-t border-gray-200 dark:border-gray-800 mt-auto">
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
         <span className="text-sm text-gray-400">© 2026 김민석</span>
         <div className="flex gap-4 text-sm text-gray-400">

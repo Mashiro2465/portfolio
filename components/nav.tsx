@@ -8,7 +8,7 @@ export function Nav() {
   const [open, setOpen] = useState(false)
 
   return (
-    <nav className="border-b border-gray-200 dark:border-gray-800">
+    <nav className="print:hidden border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between md:justify-start md:gap-6">
         <Link href="/" className="font-semibold text-sm">
           김민석

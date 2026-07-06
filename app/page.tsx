@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { ProjectCard } from '@/components/ProjectCard'
 import { SectionHeader } from '@/components/SectionHeader'
 import { Badge } from '@/components/Badge'
+import { PrintButton } from '@/components/PrintButton'
 import { projects, inProgressProjects } from '@/lib/projects'
 
 const focusAreas = [
@@ -117,6 +118,7 @@ export default function HomePage() {
             >
               이메일 보내기
             </a>
+            <PrintButton />
           </div>
         </div>
         <div className="w-72 shrink-0 border border-gray-200 dark:border-gray-700 rounded-lg p-6">

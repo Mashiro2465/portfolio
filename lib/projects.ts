@@ -48,7 +48,7 @@ export const projects: Project[] = [
       { label: '상세 보기', href: '/projects/oz-externship', variant: 'filled' },
       {
         label: 'GitHub',
-        href: 'https://github.com/OZCodingSchool/oz_externship_be_08/tree/develop',
+        href: 'https://github.com/OZ-Coding-School/oz_externship_be_08/tree/develop',
         variant: 'outline',
       },
     ],

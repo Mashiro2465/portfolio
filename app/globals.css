@@ -25,3 +25,25 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+    color: #171717 !important;
+    color-scheme: light !important;
+  }
+
+  * {
+    color: #171717 !important;
+    background-color: transparent !important;
+    border-color: #d4d4d4 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    text-shadow: none !important;
+  }
+
+  [class*="rounded-lg"] {
+    break-inside: avoid;
+  }
+}
