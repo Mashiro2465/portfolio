@@ -8,7 +8,7 @@ import { projects, inProgressProjects } from '@/lib/projects'
 const focusAreas = [
   {
     title: 'Backend & API',
-    description: 'Django/DRF, FastAPI 기반 API 설계와 데이터 모델링',
+    description: 'Django/DRF 기반 실무 경험을 바탕으로, Java/Spring Boot 기반 백엔드 개발에도 관심을 넓혀가고 있습니다',
   },
   {
     title: 'Infra & Automation',
