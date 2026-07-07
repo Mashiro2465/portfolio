@@ -113,7 +113,9 @@ export default function HomePage() {
               GitHub
             </a>
             <a
-              href="mailto:rlaalstjr2465@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=rlaalstjr2465@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm px-3 py-1.5 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
             >
               이메일 보내기
