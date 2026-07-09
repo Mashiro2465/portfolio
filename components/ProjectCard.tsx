@@ -2,7 +2,16 @@ import Link from 'next/link'
 import type { Project } from '@/lib/projects'
 import { Badge } from '@/components/Badge'
 
-export function ProjectCard({ title, category, desc, tags, features, links, status }: Project) {
+export function ProjectCard({
+  title,
+  category,
+  desc,
+  tags,
+  stackByCategory,
+  features,
+  links,
+  status,
+}: Project) {
   return (
     <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 flex flex-col transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
       <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">
@@ -16,12 +25,31 @@ export function ProjectCard({ title, category, desc, tags, features, links, stat
       </div>
       <p className="text-sm text-gray-500 mt-2">{desc}</p>
 
-      <div className="flex flex-wrap gap-2 mt-4">
-        {tags.map((tag) => (
-          <Badge key={tag} className="px-2.5 py-1">
-            {tag}
-          </Badge>
-        ))}
+      <div className="mt-4">
+        {stackByCategory
+          ? stackByCategory.map(({ category: stackCategory, items }) => (
+              <div key={stackCategory} className="mb-2 last:mb-0">
+                <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">
+                  {stackCategory}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {items.map((item) => (
+                    <Badge key={item} className="px-2.5 py-1">
+                      {item}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            ))
+          : (
+              <div className="flex flex-wrap gap-2">
+                {tags?.map((tag) => (
+                  <Badge key={tag} className="px-2.5 py-1">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            )}
       </div>
 
       <ul className="space-y-1.5 mt-4">

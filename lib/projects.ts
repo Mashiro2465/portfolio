@@ -15,7 +15,8 @@ export interface Project {
   title: string
   category: 'Personal Project' | 'Team Project'
   desc: string
-  tags: string[]
+  tags?: string[]
+  stackByCategory?: StackGroup[]
   features: string[]
   links: ProjectLink[]
   status: 'in-progress' | 'done'
@@ -128,7 +129,13 @@ export const inProgressProjects: Project[] = [
     title: 'gg-tournament',
     category: 'Personal Project',
     desc: '누구나 게임 대회를 개설하고 참가비를 걷고 상금을 정산할 수 있는 e스포츠 커뮤니티 플랫폼',
-    tags: ['Java', 'Spring Boot'],
+    stackByCategory: [
+      {
+        category: 'BACKEND',
+        items: ['Java', 'Spring Boot', 'Spring Batch', 'MySQL', 'Redis', 'JWT', '카카오 OAuth2', '토스페이먼츠'],
+      },
+      { category: 'FRONTEND', items: ['React', 'TypeScript'] },
+    ],
     features: ['대회 개설 및 참가비 결제 흐름 설계'],
     links: [],
     status: 'in-progress',
