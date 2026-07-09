@@ -6,7 +6,7 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ label, title, description }: SectionHeaderProps) {
   return (
-    <div className="mb-8">
+    <div className="mb-8 print:mb-4">
       <span className="text-xs font-medium text-gray-400 uppercase tracking-widest">
         {label}
       </span>

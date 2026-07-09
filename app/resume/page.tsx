@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { SectionHeader } from '@/components/SectionHeader'
 import { Badge } from '@/components/Badge'
@@ -25,12 +26,12 @@ const allProjects: Project[] = [...projects, ...inProgressProjects]
 
 const cases = caseSlugOrder.map((slug) => ({ slug, ...getCaseBySlug(slug) }))
 
-function ProjectDetail({ project, isFirst }: { project: Project; isFirst: boolean }) {
+function ProjectDetail({ project }: { project: Project }) {
   const { title, team, period, role, responsibilities, detailedStack, architectureImage, userFlowImage } =
     project
 
   return (
-    <div className={`space-y-8 ${isFirst ? '' : 'break-before-page'}`}>
+    <div className="space-y-8 print:space-y-4">
       <ProjectCard {...project} />
 
       <div className="break-inside-avoid">
@@ -106,7 +107,14 @@ export default function ResumePage() {
   return (
     <>
       <PrintOnLoad />
-      <main className="max-w-4xl mx-auto px-4 py-16 space-y-16">
+      <main className="max-w-4xl mx-auto px-4 py-16 space-y-16 print:space-y-8">
+        <Link
+          href="/"
+          className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 block print:hidden"
+        >
+          ← 홈으로 돌아가기
+        </Link>
+
         {/* Hero */}
         <section className="break-inside-avoid">
           <span className="text-xs uppercase tracking-widest text-gray-400">{heroTitle}</span>
@@ -144,15 +152,15 @@ export default function ResumePage() {
             title="프로젝트"
             description="완료된 프로젝트와 진행중인 프로젝트를 상세 내용까지 포함해 정리했습니다."
           />
-          <div className="space-y-16">
-            {allProjects.map((project, i) => (
-              <ProjectDetail key={project.slug} project={project} isFirst={i === 0} />
+          <div className="space-y-16 print:space-y-8">
+            {allProjects.map((project) => (
+              <ProjectDetail key={project.slug} project={project} />
             ))}
           </div>
         </section>
 
         {/* Skills */}
-        <section className="break-before-page break-inside-avoid">
+        <section className="break-inside-avoid">
           <SectionHeader
             label="Tech Stack"
             title="기술 스택"
@@ -177,7 +185,7 @@ export default function ResumePage() {
         </section>
 
         {/* Experience & Education */}
-        <section className="break-before-page">
+        <section>
           <SectionHeader
             label="Experience"
             title="경력 및 학력"
@@ -220,9 +228,9 @@ export default function ResumePage() {
             title="트러블슈팅 케이스"
             description="실무에서 마주친 문제를 원인 분석부터 해결까지 정리했습니다."
           />
-          <div className="space-y-16">
-            {cases.map(({ slug, frontmatter, content }, i) => (
-              <article key={slug} className={i === 0 ? '' : 'break-before-page'}>
+          <div className="space-y-16 print:space-y-8">
+            {cases.map(({ slug, frontmatter, content }) => (
+              <article key={slug}>
                 <div className="break-inside-avoid">
                   <span className="text-xs uppercase tracking-widest text-gray-400 block">CASE</span>
                   <h3 className="text-2xl font-bold mt-2 mb-2">{frontmatter.title}</h3>
